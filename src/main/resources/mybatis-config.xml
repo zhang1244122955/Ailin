@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!-- 设置mybatis 打印sql -->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+
+    <mappers>
+        <!-- 导入mapper -->
+        <mapper resource="com/zz624/mapper/UserMapper.xml" />
+        <mapper resource="com/zz624/mapper/GoodsMapper.xml" />
+        <mapper resource="com/zz624/mapper/ShopcarMapper.xml" />
+        <!--<mapper resource="com/zz624/mapper/OrderMapper.xml" />-->
+        <!--<mapper resource="com/zz624/mapper/RoleMapper.xml" />-->
+        <!--<mapper resource="com/zz624/mapper/CustomerMapper.xml" />-->
+        <!--<mapper resource="com/zz624/mapper/BroadcastMapper.xml" />-->
+        <!--<mapper resource="com/zz624/mapper/ServeMapper.xml" />-->
+        <!--<mapper resource="com/zz624/mapper/NewsMapper.xml" />-->
+        <!--<mapper resource="com/zz624/mapper/PowerMapper.xml" />-->
+    </mappers>
+
+
+
+</configuration>

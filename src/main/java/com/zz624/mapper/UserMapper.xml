@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz624.dao.UserDao">
+	<!-- 登录 -->
+	<select id="selectUser" parameterType="com.zz624.entry.User" resultType="com.zz624.entry.User">
+		select * from user where phone=#{phone};
+	</select>
+	<!--&lt;!&ndash; 人脸登录 &ndash;&gt;-->
+	<!--<select id="selectUserFace" parameterType="com.zz624.entry.User"-->
+		<!--resultMap="UserAndRoleMap">-->
+		<!--select * from user where userid=#{userid} and-->
+		<!--userpwd=#{facetoken};-->
+	<!--</select>-->
+	<!--&lt;!&ndash; 查询用户 &ndash;&gt;-->
+	<!--<select id="selectOwn" parameterType="com.zz624.entry.User"-->
+		<!--resultMap="UserAndRoleMap">-->
+		<!--select * from user,role where userid=#{userid} and-->
+		<!--user.roleid=role.roleid;-->
+	<!--</select>-->
+	<!--&lt;!&ndash; 查询用户 &ndash;&gt;-->
+	<!--<select id="selectUserById" parameterType="Integer"-->
+		<!--resultMap="UserAndRoleMap">-->
+		<!--select * from user where userid=#{userid};-->
+	<!--</select>-->
+	<!--&lt;!&ndash; 修改密码 &ndash;&gt;-->
+	<!--<update id="updateOwn" parameterType="com.zz624.entry.User">-->
+		<!--update user set-->
+		<!--userpwd=#{userpwd} where userid=#{userid};-->
+	<!--</update>-->
+	<!-- 添加用户 -->
+	<insert id="insertUser" parameterType="com.zz624.entry.User">
+		insert into user
+		(phone,balance)
+		values(#{phone},0);
+	</insert>
+	<!--&lt;!&ndash; 删除用户 &ndash;&gt;-->
+	<!--<delete id="deleteUser" parameterType="com.zz624.entry.User">-->
+		<!--delete from user where-->
+		<!--userid=#{userid};-->
+	<!--</delete>-->
+	<!--&lt;!&ndash; 修改用户 &ndash;&gt;-->
+	<!--<update id="updateUser" parameterType="com.zz624.entry.User">-->
+		<!--update user set-->
+		<!--roleid=#{role.roleid},name=#{name},sex=#{sex},phone=#{phone},email=#{email},hiredate=#{hiredate},birthday=#{birthday},facetoken=#{facetoken}-->
+		<!--where userid=#{userid};-->
+	<!--</update>-->
+	<!--&lt;!&ndash; 查询用户分页 &ndash;&gt;-->
+	<!--<select id="selectUserss" resultMap="UserAndRoleMap">-->
+		<!--select * from (select-->
+		<!--u.userid,u.userpwd,u.roleid,u.name,u.sex,u.phone,u.email,u.hiredate,u.birthday,r.rolename,r.power-->
+		<!--from user as u,role as r where u.roleid=r.roleid) as ur limit-->
+		<!--#{currentPage},#{pageSize};-->
+	<!--</select>-->
+	<!--&lt;!&ndash; 查询所有用户 &ndash;&gt;-->
+	<!--<select id="selectUsers" parameterType="com.zz624.entry.User"-->
+		<!--resultMap="UserAndRoleMap">-->
+		<!--select * from user,role where user.roleid=role.roleid;-->
+	<!--</select>-->
+	<!--&lt;!&ndash; 查询所有用户 &ndash;&gt;-->
+	<!--<select id="selectUsersByRoleID" parameterType="com.zz624.entry.User"-->
+		<!--resultMap="UserAndRoleMap">-->
+		<!--select * from user where roleid=#{role.roleid} and userid!=#{userid};-->
+	<!--</select>-->
+	<!--<resultMap type="com.zz624.entry.User" id="UserAndRoleMap">-->
+		<!--<id column="userid" property="userid" />-->
+		<!--<result column="userpwd" property="userpwd" />-->
+		<!--<result column="name" property="name" />-->
+		<!--<result column="sex" property="sex" />-->
+		<!--<result column="phone" property="phone" />-->
+		<!--<result column="email" property="email" />-->
+		<!--<result column="hiredate" property="hiredate" />-->
+		<!--<result column="birthday" property="birthday" />-->
+		<!--<result column="facetoken" property="facetoken" />-->
+		<!--<association property="role" column="roleid" javaType="com.zz624.entry.Role">-->
+			<!--<id column="roleid" property="roleid" />-->
+			<!--<result column="rolename" property="rolename" />-->
+			<!--<result column="power" property="power" />-->
+		<!--</association>-->
+	<!--</resultMap>-->
+</mapper>
