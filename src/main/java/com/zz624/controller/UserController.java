@@ -1,6 +1,10 @@
 package com.zz624.controller;
 
+import com.zz624.biz.OrderBiz;
+import com.zz624.biz.ShopcarBiz;
 import com.zz624.biz.UserBiz;
+import com.zz624.entry.Order;
+import com.zz624.entry.Shopcar;
 import com.zz624.entry.User;
 import com.zz624.util.CodeUtil;
 import com.zz624.util.MD5util;
@@ -13,13 +17,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.MessageDigest;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 //用户控制层
 @Controller
 public class UserController {
+    @Autowired
+    private UserBiz ub;
 	@Autowired
-	private UserBiz ub;
+	private ShopcarBiz sb;
+	@Autowired
+	private OrderBiz ob;
 
 	@RequestMapping("/login")
 	@ResponseBody
@@ -39,6 +49,8 @@ public class UserController {
 			}else{
 				//新用户（第一次注册）
 				ub.addUser(user);
+				own = ub.findUser(user);
+				session.setAttribute("user", own);
 				return "002";
 			}
 		}else{
@@ -47,6 +59,23 @@ public class UserController {
 		}
 
 	}
+
+	@RequestMapping("/setfacetoken")
+	@ResponseBody
+	public String setFaceToken(User user, HttpSession session) {
+		System.out.println("---setFaceToken");
+
+		User own = ub.findUser(user);
+
+		// 切掉字符串没用部分
+		own.setFacetoken(user.getFacetoken().substring(22));
+		//开通人脸识别
+		int code = ub.addUserFace(own);
+
+		return ""+code;
+
+	}
+
 	@RequestMapping("/sendmessage")
 	@ResponseBody
 	public void sendMessage(String phone, HttpSession session) {
@@ -62,87 +91,61 @@ public class UserController {
 
 	}
 
-//	@RequestMapping("/modifyOwn")
-//	public String modifyOwn(User user, HttpServletRequest request) {
-//		System.out.println("---修改密码");
-//		//对密码进行加密
-//		user.setUserpwd(MD5util.getPwd(user.getUserpwd()));
-//		boolean b = ub.modifyOwn(user);
-//		if (b) {
-//			return "redirect:login.jsp";
-//		}
-//		return "redirect:login.jsp";
-//	}
-//
-//	@RequestMapping("/addUser")
-//	public String addUser(User user, Role role, HttpServletRequest request) {
-//		System.out.println("---添加用户");
-//		user.setRole(role);
-//		//对密码进行加密
-//		user.setUserpwd(MD5util.getPwd(user.getUserpwd()));
-//		boolean b = ub.addUser(user);
-//		if (b) {
-//			return "redirect:findUsers";
-//		}
-//		return "redirect:findUsers";
-//	}
-//
-//
-//
-//	@RequestMapping("/modifyUser")
-//	public String modifyUser(User user, Role role, HttpServletRequest request) {
-//		System.out.println("---修改用户");
-//		user.setRole(role);
-//		boolean b = ub.modifyUser(user);
-//		if (b) {
-//			return "redirect:findUsers";
-//		}
-//		return "redirect:findUsers";
-//	}
-//
-//	@RequestMapping("/findUser")
-//	public String findOwn(User user, HttpServletRequest request) {
-//		System.out.println("---查询用户");
-//		User own = ub.findOwn(user);
-//		List<Role> roles = rb.findRoles();
-//		if (own != null) {
-//			request.setAttribute("u", own);
-//			request.setAttribute("roles", roles);
-//			return "user-modify";
-//		}
-//		return "user-list";
-//	}
 
 
 	
-//	@RequestMapping("/facelogin")
-//	@ResponseBody
-//	public String faceLogin(User user, HttpSession session) {
-//		System.out.println("---人脸登录");
-//
-//
-//		// 切掉字符串没用部分
-//		user.setFacetoken(user.getFacetoken().substring(22));
-//
-//		int code = 0;
-//
-//		if("".equals(user.getUserpwd())){
-//			//调用人脸登录方法获得结果
-//			code = ub.findUserFace(user);
-//		}else{
-//			//通过密码开通人脸识别
-//			//对密码进行加密
-//			user.setUserpwd(MD5util.getPwd(user.getUserpwd()));
-//			code = ub.findUserFacePwd(user);
-//		}
-//
-//		if(code == 10002000){
-//			//如果成功登陆，就把用户名存入session
-//			User own = ub.findUserById(user.getUserid());
-//			Role role = rb.findRole(own.getRole().getRoleid());
-//			session.setAttribute("user", own);
-//			session.setAttribute("role", role);
-//		}
-//		return ""+code;
-//	}
+	@RequestMapping("/facematch")
+	@ResponseBody
+	public String faceMatch(User user,String ids,String money,HttpSession session) {
+		System.out.println("---faceMatch");
+
+		// 切掉字符串没用部分
+		user.setFacetoken(user.getFacetoken().substring(22));
+
+		//开通人脸识别
+		int code = ub.findUserFace(user);
+		if(10002000 == code){
+			User own = ub.findUser(user);
+			double balance = own.getBalance()-Double.parseDouble(money);
+			if(balance >= 0){
+				own.setBalance(balance);
+				//先扣钱
+				ub.modifyUser(own);
+				//修改购物车物品的状态
+				sb.modifyFlagByIds(ids);
+				//添加订单信息
+				Order order;
+				Date now = new Date();
+				DateFormat d1 = DateFormat.getDateInstance();
+				DateFormat d2 = DateFormat.getTimeInstance();
+				List<Shopcar> shopcarList = sb.findShopcarByUserIds(ids);
+				for (int i = 0;i < shopcarList.size();i++){
+					order = new Order();
+					order.setAge(own.getAge());
+					order.setSex(own.getSex());
+					order.setColor(shopcarList.get(i).getColor());
+					order.setGoodsid(shopcarList.get(i).getGoodsid());
+					order.setUserid(shopcarList.get(i).getUserid());
+					order.setGoodsname(shopcarList.get(i).getGoodsname());
+					order.setNumber(shopcarList.get(i).getNumber());
+					order.setPrice(shopcarList.get(i).getPrice());
+					order.setSumprice(shopcarList.get(i).getNumber()*shopcarList.get(i).getPrice());
+					order.setPaydate(d1.format(now));
+					order.setPaytime(d2.format(now));
+
+					ob.addOrder(order);
+
+				}
+				return code + ","+balance;
+			}else{
+				//余额不足
+				code = 10000005;
+			}
+		    //
+        }
+
+
+		return ""+code;
+	}
+
 }

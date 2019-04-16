@@ -5,7 +5,11 @@
 <mapper namespace="com.zz624.dao.ShopcarDao">
 	<!-- 查询本人所有购物车记录 -->
 	<select id="selectShopcarByUserId" parameterType="com.zz624.entry.Shopcar" resultType="com.zz624.entry.Shopcar">
-		select * from shopcar where userid=#{userid};
+		select * from shopcar where userid=#{userid} and flag = '0';
+	</select>
+	<!-- 通过ids查询购物车记录 -->
+	<select id="selectShopcarByIds" parameterType="String" resultType="com.zz624.entry.Shopcar">
+		select * from shopcar where id in (${_parameter});
 	</select>
 	<!--查询单条购物车记录-->
 	<select id="selectShopcarByUserIdAndGoodsIdAndColor" parameterType="com.zz624.entry.Shopcar" resultType="com.zz624.entry.Shopcar">
@@ -49,6 +53,24 @@
 		update shopcar set
 		number=#{number},flag=#{flag}
 		where userid=#{userid} and goodsid = #{goodsid} and color = #{color};
+	</update>
+	<!-- 修改购物车数量 -->
+	<update id="updateNumber" parameterType="com.zz624.entry.Shopcar">
+		update shopcar set
+		number=#{number}
+		where id=#{id};
+	</update>
+	<!-- 修改购物车状态 -->
+	<update id="updateFlag" parameterType="com.zz624.entry.Shopcar">
+		update shopcar set
+		flag=#{flag}
+		where id=#{id};
+	</update>
+	<!-- 修改购物车状态 -->
+	<update id="updateFlagByIds" parameterType="String">
+		update shopcar set
+		flag=2
+		where id in (${_parameter});
 	</update>
 	<!--&lt;!&ndash; 查询用户分页 &ndash;&gt;-->
 	<!--<select id="selectUserss" resultMap="UserAndRoleMap">-->

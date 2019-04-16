@@ -40,4 +40,37 @@ public class ShopcarBizImpl implements ShopcarBiz {
         }
         return false;
     }
+
+    @Override
+    public boolean modifyNumber(Shopcar shopcar) {
+        int i = sd.updateNumber(shopcar);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean modifyFlag(Shopcar shopcar) {
+        int i = sd.updateFlag(shopcar);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean modifyFlagByIds(String ids) {
+        int i = sd.updateFlagByIds(ids);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<Shopcar> findShopcarByUserIds(String ids) {
+        return sd.selectShopcarByIds(ids);
+    }
+
 }

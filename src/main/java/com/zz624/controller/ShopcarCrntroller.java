@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+
 @Controller
 public class ShopcarCrntroller {
 
     @Autowired
     private ShopcarBiz sb;
 
-    @RequestMapping(value="/getShopcarByUserId",produces = "text/plain;charset=utf-8")
+    @RequestMapping(value = "/getShopcarByUserId", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getShopcarByUserId(Shopcar shopcar) {
         List<Shopcar> shopcarList = sb.findShopcarByUserId(shopcar);
@@ -24,27 +25,52 @@ public class ShopcarCrntroller {
         return json;
     }
 
-    @RequestMapping(value="/setShopcarByUserId",produces = "text/plain;charset=utf-8")
+    @RequestMapping(value = "/setShopcarByUserId", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String setShopcarByUserId(Shopcar shopcar) {
-        System.out.println("shopcar"+shopcar.toString());
+        System.out.println("shopcar" + shopcar.toString());
         Shopcar sc = sb.findShopcarByUserIdAndGoodsIdAndColor(shopcar);
-        if(sc != null){
-            sc.setNumber(sc.getNumber()+shopcar.getNumber());
+        if (sc != null) {
+            sc.setNumber(sc.getNumber() + shopcar.getNumber());
             //修改
-            if(sb.modifyShopcar(sc)){
+            if (sb.modifyShopcar(sc)) {
                 return "000";
-            }else{
+            } else {
                 return "001";
             }
-        }else {
+        } else {
             //添加
-            if(sb.addShopcar(shopcar)){
+            if (sb.addShopcar(shopcar)) {
                 return "000";
-            }else{
+            } else {
                 return "001";
             }
         }
 
     }
+
+    @RequestMapping(value = "/setShopcarNumber", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String setShopcarNumber(Shopcar shopcar) {
+        System.out.println("shopcar" + shopcar.toString());
+
+        if (sb.modifyNumber(shopcar)) {
+            return "000";
+        } else {
+            return "001";
+        }
+    }
+
+    @RequestMapping(value = "/setShopcarFlag", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String setShopcarFlag(Shopcar shopcar) {
+        System.out.println("shopcar" + shopcar.toString());
+
+        if (sb.modifyFlag(shopcar)) {
+            return "000";
+        } else {
+            return "001";
+        }
+    }
+
 }

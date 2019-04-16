@@ -40,12 +40,12 @@
 		<!--delete from user where-->
 		<!--userid=#{userid};-->
 	<!--</delete>-->
-	<!--&lt;!&ndash; 修改用户 &ndash;&gt;-->
-	<!--<update id="updateUser" parameterType="com.zz624.entry.User">-->
-		<!--update user set-->
-		<!--roleid=#{role.roleid},name=#{name},sex=#{sex},phone=#{phone},email=#{email},hiredate=#{hiredate},birthday=#{birthday},facetoken=#{facetoken}-->
-		<!--where userid=#{userid};-->
-	<!--</update>-->
+	<!-- 修改用户 -->
+	<update id="updateUser" parameterType="com.zz624.entry.User">
+		update user set
+		age=#{age},name=#{name},sex=#{sex},balance=#{balance},facetoken=#{facetoken},phone=#{phone}
+		where id=#{id};
+	</update>
 	<!--&lt;!&ndash; 查询用户分页 &ndash;&gt;-->
 	<!--<select id="selectUserss" resultMap="UserAndRoleMap">-->
 		<!--select * from (select-->

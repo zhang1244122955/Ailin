@@ -24,7 +24,7 @@
                 if(user != null){
             %>
             <div class="login"><a href="#"><%=user.getPhone()%></a></div>
-            <div class="sp-cart"><a href="shopcart.jsp?userid=<%=user.getId()%>">购物车</a></div>
+            <div class="sp-cart"><a href="shopcart.jsp">购物车</a></div>
             <%}else{%>
             <div class="login"><a href="login.jsp">登录</a></div>
             <div class="sp-cart"><a href="login.jsp">购物车</a></div>

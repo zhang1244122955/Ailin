@@ -23,8 +23,8 @@ public interface UserBiz {
 	boolean modifyUser(User user);
 
 	//人脸登录
-	//int findUserFace(User user);
+	int addUserFace(User user);
 
-	//人脸注册
-	//int findUserFacePwd(User user);
+	//人脸比较
+	int findUserFace(User user);
 }

@@ -2,8 +2,6 @@ package com.zz624.dao;
 
 import com.zz624.entry.User;
 
-import java.util.List;
-import java.util.Map;
 
 public interface UserDao {
 	// 登录

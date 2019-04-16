@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz624.dao.OrderDao">
+
+    <insert id="insertOrder" parameterType="com.zz624.entry.Order">
+		insert into orders
+		(userid,goodsid,number,color,price,goodsname,paytime,sex,age,paydate,sumprice)
+		values(#{userid},#{goodsid},#{number},#{color},#{price},#{goodsname},#{paytime},#{sex},#{age},#{paydate},#{sumprice});
+	</insert>
+
+</mapper>
