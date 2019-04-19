@@ -34,11 +34,20 @@ public class OrderBizImpl implements OrderBiz {
 
     @Override
     public int findSumPersonBySex(String sex, String startDate, String endDate) {
-        return 0;
+        Map map = new HashMap();
+        map.put("sex",sex);
+        map.put("startDate",startDate);
+        map.put("endDate",endDate);
+        return od.selectSumPersonBySex(map);
     }
 
     @Override
     public int findSumPersonByAge(String startAge, String endAge, String startDate, String endDate) {
-        return 0;
+        Map map = new HashMap();
+        map.put("startAge",startAge);
+        map.put("endAge",endAge);
+        map.put("startDate",startDate);
+        map.put("endDate",endDate);
+        return od.selectSumPersonByAge(map);
     }
 }

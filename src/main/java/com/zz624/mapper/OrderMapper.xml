@@ -14,4 +14,11 @@
 		select ifnull(sum(sumprice),0) from orders where paydate >= #{startDate} and paydate &lt;= #{endDate};
 	</select>
 
+	<select id="selectSumPersonBySex" parameterType="map" resultType="Integer">
+		select ifnull(count(distinct userid),0) from orders where sex = #{sex} and paydate >= #{startDate} and paydate &lt;= #{endDate};
+	</select>
+
+	<select id="selectSumPersonByAge" parameterType="map" resultType="Integer">
+		select ifnull(count(distinct userid),0) from orders where age >= #{startAge} and age &lt;= #{endAge} and paydate >= #{startDate} and paydate &lt;= #{endDate};
+	</select>
 </mapper>
