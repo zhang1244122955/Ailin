@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -116,7 +117,7 @@ public class UserController {
 				//添加订单信息
 				Order order;
 				Date now = new Date();
-				DateFormat d1 = DateFormat.getDateInstance();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				DateFormat d2 = DateFormat.getTimeInstance();
 				List<Shopcar> shopcarList = sb.findShopcarByUserIds(ids);
 				for (int i = 0;i < shopcarList.size();i++){
@@ -130,7 +131,7 @@ public class UserController {
 					order.setNumber(shopcarList.get(i).getNumber());
 					order.setPrice(shopcarList.get(i).getPrice());
 					order.setSumprice(shopcarList.get(i).getNumber()*shopcarList.get(i).getPrice());
-					order.setPaydate(d1.format(now));
+					order.setPaydate(sdf.format(now));
 					order.setPaytime(d2.format(now));
 
 					ob.addOrder(order);

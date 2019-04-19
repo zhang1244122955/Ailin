@@ -10,4 +10,8 @@
 		values(#{userid},#{goodsid},#{number},#{color},#{price},#{goodsname},#{paytime},#{sex},#{age},#{paydate},#{sumprice});
 	</insert>
 
+	<select id="selectSumPriceByDates" parameterType="map" resultType="Double">
+		select ifnull(sum(sumprice),0) from orders where paydate >= #{startDate} and paydate &lt;= #{endDate};
+	</select>
+
 </mapper>

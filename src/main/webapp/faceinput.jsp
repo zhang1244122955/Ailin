@@ -57,7 +57,7 @@
            <%--type="password" class="layui-input">--%>
     <input hidden id="facetoken" name="facetoken" />
     <%--<hr class="hr15">--%>
-    <button id="btn_face" type="" style="color:white; font-size:18px; background-color:#189F92; border:0px; border-radius:2px; width: 100%;height: 45px;" value="登录">登录</button>
+    <button id="btn_face" type="" style="color:white; font-size:18px; background-color:#189F92; border:0px; border-radius:2px; width: 100%;height: 45px;" >录入</button>
 </div>
 </body>
 
@@ -81,7 +81,7 @@
     $("#btn_face").click(function() {
         //按钮a点击完成后。b也执行点击事件。
         $(".trigger").trigger('click');
-        $("#btn_face").html("正在登录···");
+        $("#btn_face").html("正在录入···");
         $("#btn_face").css("background-color", "#D7D7D7");
         $("#btn_face").attr("disabled", true);
         $.ajax({
@@ -106,7 +106,9 @@
                             icon: 1,
                             time: 1000
                         });
-                        //location.href = "/Customer/index.jsp";
+                        setTimeout(function () {
+                            location.href = "/index.jsp";
+                        }, 1000);
                         break;
                     case '10000009':
                         //图片中没有人脸

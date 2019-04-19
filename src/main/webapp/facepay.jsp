@@ -125,6 +125,16 @@
                         clearInterval(timer);
                         alert("余额不足");
                         break;
+                    case '10000008':
+                        //必要参数未传入
+                        layer.msg('首次支付请先录入人脸', {
+                            icon: 5,
+                            time: 1000
+                        });
+                        setTimeout(function () {
+                            location.href = "/faceinput.jsp";
+                        }, 1000);
+                        break;
                     case '10000009':
                         //图片中没有人脸
                         layer.msg('图片中没有人脸', {
@@ -248,8 +258,8 @@
     //setInterval("faceMatch()","1000")
     //
     // setTimeout(faceMatch,1000);
-    setTimeout(faceMatch,2500);
-    //var timer = setInterval("faceMatch()","2000")
+    //setTimeout(faceMatch,2500);
+    var timer = setInterval("faceMatch()","2000")
 
 </script>
 </html>

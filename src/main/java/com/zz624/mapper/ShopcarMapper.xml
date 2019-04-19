@@ -13,7 +13,7 @@
 	</select>
 	<!--查询单条购物车记录-->
 	<select id="selectShopcarByUserIdAndGoodsIdAndColor" parameterType="com.zz624.entry.Shopcar" resultType="com.zz624.entry.Shopcar">
-		select * from shopcar where userid=#{userid} and goodsid = #{goodsid} and color = #{color};
+		select * from shopcar where userid=#{userid} and goodsid = #{goodsid} and color = #{color} and flag = '0';
 	</select>
 	<!--&lt;!&ndash; 人脸登录 &ndash;&gt;-->
 	<!--<select id="selectUserFace" parameterType="com.zz624.entry.User"-->

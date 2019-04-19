@@ -83,7 +83,6 @@ public class UserBizImpl implements UserBiz {
                 ud.updateUser(user);
 
                 return 10002000;//用户名脸部信息采集成功
-
             case 222202:
                 return 10000009;//图片中没有人脸
             case 223113:
@@ -133,6 +132,8 @@ public class UserBizImpl implements UserBiz {
                 } else {
                     return 10000004;//用户名脸部信息匹配失败
                 }
+            case 222001:
+                return 10000008;//必要参数未传入
             case 222202:
                 return 10000009;//图片中没有人脸
             case 223113:
