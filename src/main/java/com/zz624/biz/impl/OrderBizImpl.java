@@ -25,10 +25,11 @@ public class OrderBizImpl implements OrderBiz {
     }
 
     @Override
-    public Double findSumPriceByDates(String startDate, String endDate) {
+    public Double findSumPriceByDates(String startDate, String endDate, String category) {
         Map map = new HashMap();
         map.put("startDate",startDate);
         map.put("endDate",endDate);
+        map.put("category",category);
         return od.selectSumPriceByDates(map);
     }
 

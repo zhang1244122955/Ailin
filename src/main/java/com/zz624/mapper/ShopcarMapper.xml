@@ -40,8 +40,8 @@
 	<!-- 添加购物车记录 -->
 	<insert id="insertShopcar" parameterType="com.zz624.entry.Shopcar">
 		insert into shopcar
-		(userid,goodsid,number,flag,color,price,goodsname,url)
-		values(#{userid},#{goodsid},#{number},#{flag},#{color},#{price},#{goodsname},#{url});
+		(userid,goodsid,number,flag,color,price,goodsname,url,category)
+		values(#{userid},#{goodsid},#{number},#{flag},#{color},#{price},#{goodsname},#{url},#{category});
 	</insert>
 	<!--&lt;!&ndash; 删除用户 &ndash;&gt;-->
 	<!--<delete id="deleteUser" parameterType="com.zz624.entry.User">-->
@@ -52,7 +52,7 @@
 	<update id="updateShopcar" parameterType="com.zz624.entry.Shopcar">
 		update shopcar set
 		number=#{number},flag=#{flag}
-		where userid=#{userid} and goodsid = #{goodsid} and color = #{color};
+		where id=#{id};
 	</update>
 	<!-- 修改购物车数量 -->
 	<update id="updateNumber" parameterType="com.zz624.entry.Shopcar">

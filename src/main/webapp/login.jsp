@@ -9,10 +9,10 @@
 <html>
 <head>
     <title>用户登录</title>
-    <link rel="stylesheet" type="text/css" href="/res/static/css/main.css">
-    <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css">
-    <script type="text/javascript" src="/res/layui/layui.js"></script>
-    <script type="text/javascript" src="/res/static/js/jquery-1.7.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../res/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../res/layui/css/layui.css">
+    <script type="text/javascript" src="../res/layui/layui.js"></script>
+    <script type="text/javascript" src="../res/static/js/jquery-1.7.1.min.js"></script>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">

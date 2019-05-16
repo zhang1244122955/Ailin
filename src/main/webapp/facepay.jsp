@@ -10,14 +10,14 @@
 <html>
 <head>
     <title>支付</title>
-    <link rel="stylesheet" type="text/css" href="/res/static/css/main.css">
-    <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css">
-    <script type="text/javascript" src="/res/layui/layui.js"></script>
-    <script type="text/javascript" src="/res/static/js/jquery-1.7.1.min.js"></script>
-    <link rel="stylesheet" href="/res/static/css/font.css">
+    <link rel="stylesheet" type="text/css" href="../res/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../res/layui/css/layui.css">
+    <script type="text/javascript" src="../res/layui/layui.js"></script>
+    <script type="text/javascript" src="../res/static/js/jquery-1.7.1.min.js"></script>
+    <link rel="stylesheet" href="../res/static/css/font.css">
     <%--<link rel="stylesheet" href="/res/static/css/xadmin.css">--%>
-    <script type="text/javascript" src="/res/static/js/xadmin.js"></script>
-    <script src="/res/static/js/photobooth_min.js"></script>
+    <script type="text/javascript" src="../res/static/js/xadmin.js"></script>
+    <script src="../res/static/js/photobooth_min.js"></script>
 </head>
 <body>
 <div>
@@ -85,6 +85,7 @@
         $.ajax({
             type: "POST",
             url: "facematch",
+            async:false,
             data: {
                 "facetoken": $('#facetoken').val(),
                 "phone": <%=user.getPhone()%>,

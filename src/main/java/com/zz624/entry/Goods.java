@@ -6,6 +6,7 @@ public class Goods {
     private Integer id;
     private String goodsname;
     private String imagesrc;
+    private String category;
     private List<GoodsDetail> details;
 
     public Integer getId() {
@@ -32,6 +33,14 @@ public class Goods {
         this.imagesrc = imagesrc;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public List<GoodsDetail> getDetails() {
         return details;
     }
@@ -46,6 +55,7 @@ public class Goods {
                 "id=" + id +
                 ", goodsname='" + goodsname + '\'' +
                 ", imagesrc='" + imagesrc + '\'' +
+                ", category='" + category + '\'' +
                 ", details=" + details +
                 '}';
     }

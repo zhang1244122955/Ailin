@@ -27,4 +27,7 @@ public interface UserBiz {
 
 	//人脸比较
 	int findUserFace(User user);
+
+	//获取某天总用户数
+	int findSumUsersByDates(String date);
 }

@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="/res/static/css/main.css">
-    <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css">
-    <script type="text/javascript" src="/res/layui/layui.js"></script>
-    <script type="text/javascript" src="/res/static/js/jquery-1.7.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../res/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../res/layui/css/layui.css">
+    <script type="text/javascript" src="../res/layui/layui.js"></script>
+    <script type="text/javascript" src="../res/static/js/jquery-1.7.1.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
@@ -77,36 +77,12 @@
                 <div class="title">所有分类</div>
                 <div class="list-box">
                     <dl>
-                        <dt>奶粉辅食</dt>
-                        <dd><a href="javascript:;">进口奶粉</a></dd>
-                        <dd><a href="javascript:;">宝宝辅食</a></dd>
-                        <dd><a href="javascript:;">营养品</a></dd>
+                        <dt>母婴用品</dt>
+                        <dd><a href="commodity.jsp?category=母婴">母婴用品</a></dd>
                     </dl>
                     <dl>
-                        <dt>儿童用品</dt>
-                        <dd><a href="javascript:;">纸尿裤</a></dd>
-                        <dd><a href="javascript:;">婴儿湿巾</a></dd>
-                        <dd><a href="javascript:;">婴儿车</a></dd>
-                        <dd><a href="javascript:;">婴儿床</a></dd>
-                        <dd><a href="javascript:;">儿童安全座椅</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>儿童早教</dt>
-                        <dd><a href="javascript:;">儿童玩具</a></dd>
-                        <dd><a href="javascript:;">早教书籍</a></dd>
-                        <dd><a href="javascript:;">孕产育儿书</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>儿童服饰</dt>
-                        <dd><a href="javascript:;">童装</a></dd>
-                        <dd><a href="javascript:;">童鞋</a></dd>
-                        <dd><a href="javascript:;">宝宝配饰</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>孕妈专区</dt>
-                        <dd><a href="javascript:;">孕妇装</a></dd>
-                        <dd><a href="javascript:;">孕妇护肤</a></dd>
-                        <dd><a href="javascript:;">孕妇用品</a></dd>
+                        <dt>生鲜水果</dt>
+                        <dd><a href="commodity.jsp?category=水果">水果</a></dd>
                     </dl>
                 </div>
             </div>
@@ -158,7 +134,7 @@
         $.ajax({
             type: "POST",
             url: "getAllGoods",
-            success: function (data) {
+            success: function (data){
                 data = eval(data);
                 for(var i=0;i<data.length;i++){
                     $("#list-cont").append("<div class=\"item\">\n" +

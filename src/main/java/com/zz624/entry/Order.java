@@ -14,6 +14,7 @@ public class Order {
   private Integer age;
   private String paydate;
   private Double sumprice;
+  private String category;
 
   public Integer getId() {
     return id;
@@ -118,6 +119,14 @@ public class Order {
     this.sumprice = sumprice;
   }
 
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+
   @Override
   public String toString() {
     return "Order{" +
@@ -133,6 +142,7 @@ public class Order {
             ", age=" + age +
             ", paydate='" + paydate + '\'' +
             ", sumprice=" + sumprice +
+            ", category='" + category + '\'' +
             '}';
   }
 }

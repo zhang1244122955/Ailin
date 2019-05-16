@@ -12,6 +12,7 @@ public class Shopcar {
   private Double price;
   private String goodsname;
   private String url;
+  private String category;
 
   public String getGoodsname() {
     return goodsname;
@@ -89,6 +90,14 @@ public class Shopcar {
     this.price = price;
   }
 
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+
   @Override
   public String toString() {
     return "Shopcar{" +
@@ -101,6 +110,7 @@ public class Shopcar {
             ", price=" + price +
             ", goodsname='" + goodsname + '\'' +
             ", url='" + url + '\'' +
+            ", category='" + category + '\'' +
             '}';
   }
 }

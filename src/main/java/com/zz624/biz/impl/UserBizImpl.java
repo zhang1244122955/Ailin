@@ -224,4 +224,9 @@ public class UserBizImpl implements UserBiz {
 
         return ud.selectUserById(userid);
     }
+
+    @Override
+    public int findSumUsersByDates(String date) {
+        return ud.selectSumUsersByDates(date);
+    }
 }

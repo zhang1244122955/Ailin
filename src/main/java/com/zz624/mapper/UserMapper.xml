@@ -7,6 +7,10 @@
 	<select id="selectUser" parameterType="com.zz624.entry.User" resultType="com.zz624.entry.User">
 		select * from user where phone=#{phone};
 	</select>
+
+    <select id="selectSumUsersByDates" parameterType="String" resultType="Integer">
+        select count(id) from user where registerdate &lt;=#{0};
+    </select>
 	<!--&lt;!&ndash; 人脸登录 &ndash;&gt;-->
 	<!--<select id="selectUserFace" parameterType="com.zz624.entry.User"-->
 		<!--resultMap="UserAndRoleMap">-->
@@ -32,8 +36,8 @@
 	<!-- 添加用户 -->
 	<insert id="insertUser" parameterType="com.zz624.entry.User">
 		insert into user
-		(phone,balance)
-		values(#{phone},0);
+		(phone,balance,registerdate)
+		values(#{phone},10000,#{registerdate});
 	</insert>
 	<!--&lt;!&ndash; 删除用户 &ndash;&gt;-->
 	<!--<delete id="deleteUser" parameterType="com.zz624.entry.User">-->

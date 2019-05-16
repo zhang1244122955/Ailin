@@ -6,8 +6,8 @@ public interface OrderBiz {
     //添加订单信息
     boolean addOrder(Order order);
 
-    //获取某段日期销售额
-    Double findSumPriceByDates(String startDate,String endDate);
+    //通过类别获取某段日期销售额
+    Double findSumPriceByDates(String startDate,String endDate,String category);
 
     //通过性别获取某段日期消费人数
     int findSumPersonBySex(String sex,String startDate,String endDate);

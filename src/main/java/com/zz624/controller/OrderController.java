@@ -29,14 +29,19 @@ public class OrderController {
         Map map = new HashMap();
 
         String[] days = getBeforeSevenDay();
-        String[] vals = new String[7];
+
+        String[][] vals = new String[3][7];
 
         for(int i = 0;i<7;i++){
-            vals[i] = ""+ob.findSumPriceByDates(days[i],days[i]);
+            vals[0][i] = ""+ob.findSumPriceByDates(days[i],days[i],"母婴");
+            vals[1][i] = ""+ob.findSumPriceByDates(days[i],days[i],"水果");
+            vals[2][i] = ""+(Double.parseDouble(vals[0][i])+Double.parseDouble(vals[1][i]));
         }
 
         map.put("key",days);
-        map.put("value",vals);
+        map.put("value1",vals[0]);
+        map.put("value2",vals[1]);
+        map.put("value3",vals[2]);
 
         Gson gson = new Gson();
         String json = gson.toJson(map);

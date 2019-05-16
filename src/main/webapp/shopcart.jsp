@@ -3,10 +3,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/res/static/css/main.css">
-    <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css">
-    <script type="text/javascript" src="/res/layui/layui.js"></script>
-    <script type="text/javascript" src="/res/static/js/jquery-1.7.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../res/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../res/layui/css/layui.css">
+    <script type="text/javascript" src="../res/layui/layui.js"></script>
+    <script type="text/javascript" src="../res/static/js/jquery-1.7.1.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
@@ -248,13 +248,14 @@
                 });
             }else{
                 ids = ids.substring(0,ids.length-1);
-            }
-            layer.confirm('确定要支付吗？确认注视摄像头', {
-                yes: function (index, layero) {
-                    location.href = "/facepay.jsp?ailin=test&ids="+ids+"&money="+$(".pieces-total").html().substring(1);
-                }
+                layer.confirm('确定要支付吗？确认注视摄像头', {
+                    yes: function (index, layero) {
+                        location.href = "/facepay.jsp?ailin=test&ids="+ids+"&money="+$(".pieces-total").html().substring(1);
+                    }
 
-            })
+                })
+            }
+
         })
 
 

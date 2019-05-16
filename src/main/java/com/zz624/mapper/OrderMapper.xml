@@ -6,12 +6,12 @@
 
     <insert id="insertOrder" parameterType="com.zz624.entry.Order">
 		insert into orders
-		(userid,goodsid,number,color,price,goodsname,paytime,sex,age,paydate,sumprice)
-		values(#{userid},#{goodsid},#{number},#{color},#{price},#{goodsname},#{paytime},#{sex},#{age},#{paydate},#{sumprice});
+		(userid,goodsid,number,color,price,goodsname,paytime,sex,age,paydate,sumprice,category)
+		values(#{userid},#{goodsid},#{number},#{color},#{price},#{goodsname},#{paytime},#{sex},#{age},#{paydate},#{sumprice},#{category});
 	</insert>
 
 	<select id="selectSumPriceByDates" parameterType="map" resultType="Double">
-		select ifnull(sum(sumprice),0) from orders where paydate >= #{startDate} and paydate &lt;= #{endDate};
+		select ifnull(sum(sumprice),0) from orders where category = #{category} and paydate >= #{startDate} and paydate &lt;= #{endDate};
 	</select>
 
 	<select id="selectSumPersonBySex" parameterType="map" resultType="Integer">

@@ -9,22 +9,24 @@
 <html>
 <head>
     <title>分析</title>
-    <link rel="stylesheet" type="text/css" href="/res/static/css/main.css">
-    <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css">
-    <script type="text/javascript" src="/res/layui/layui.js"></script>
-    <script type="text/javascript" src="/res/static/js/jquery-1.7.1.min.js"></script>
-    <script src="/res/static/js/echarts.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../res/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../res/layui/css/layui.css">
+    <script type="text/javascript" src="../res/layui/layui.js"></script>
+    <script type="text/javascript" src="../res/static/js/jquery-1.7.1.min.js"></script>
+    <script src="../res/static/js/echarts.min.js"></script>
 </head>
 <body>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 <div id="main" style="width: 600px;height:400px;"></div>
 <div id="main1" style="width: 600px;height:400px;"></div>
 <div id="main2" style="width: 600px;height:400px;"></div>
+<div id="main3" style="width: 600px;height:400px;"></div>
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
     var myChart1 = echarts.init(document.getElementById('main1'));
     var myChart2 = echarts.init(document.getElementById('main2'));
+    var myChart3 = echarts.init(document.getElementById('main3'));
 
     var posList = [
         'left', 'right', 'top', 'bottom',
@@ -32,6 +34,67 @@
         'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
         'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
     ];
+
+    myChart.configParameters = {
+        rotate: {
+            min: -90,
+            max: 90
+        },
+        align: {
+            options: {
+                left: 'left',
+                center: 'center',
+                right: 'right'
+            }
+        },
+        verticalAlign: {
+            options: {
+                top: 'top',
+                middle: 'middle',
+                bottom: 'bottom'
+            }
+        },
+        position: {
+            options: echarts.util.reduce(posList, function (map, pos) {
+                map[pos] = pos;
+                return map;
+            }, {})
+        },
+        distance: {
+            min: 0,
+            max: 100
+        }
+    };
+
+    myChart.config = {
+        rotate: 90,
+        align: 'left',
+        verticalAlign: 'middle',
+        position: 'insideBottom',
+        distance: 15,
+        onChange: function () {
+            var labelOption = {
+                normal: {
+                    rotate: myChart.config.rotate,
+                    align: myChart.config.align,
+                    verticalAlign: myChart.config.verticalAlign,
+                    position: myChart.config.position,
+                    distance: myChart.config.distance
+                }
+            };
+            myChart.setOption({
+                series: [{
+                    label: labelOption
+                }, {
+                    label: labelOption
+                }, {
+                    label: labelOption
+                }, {
+                    label: labelOption
+                }]
+            });
+        }
+    };
 
     myChart1.configParameters = {
         rotate: {
@@ -80,7 +143,7 @@
                     distance: myChart1.config.distance
                 }
             };
-            myChart.setOption({
+            myChart1.setOption({
                 series: [{
                     label: labelOption
                 }, {
@@ -112,6 +175,23 @@
             }
         }
     };
+    var labelOption = {
+        normal: {
+            show: true,
+            position: myChart.config.position,
+            distance: myChart.config.distance,
+            align: myChart.config.align,
+            verticalAlign: myChart.config.verticalAlign,
+            rotate: myChart.config.rotate,
+            formatter: '{c}  {name|{a}}',
+            fontSize: 16,
+            rich: {
+                name: {
+                    textBorderColor: '#fff'
+                }
+            }
+        }
+    };
 
     $.ajax({
         type: "POST",
@@ -124,41 +204,63 @@
             // 指定图表的配置项和数据
             option = {
                 title: {
-                    text: '一周交易额'
+                    text: '一周销售额'
                 },
-                color: ['#3398DB'],
-                tooltip : {
+                color: ['#003366', '#006699', '#4cabce'],
+                tooltip: {
                     trigger: 'axis',
-                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    axisPointer: {
+                        type: 'shadow'
                     }
                 },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
+                legend: {
+                    data: ['Forest', 'Steppe', 'Desert', 'Wetland']
                 },
-                xAxis : [
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'center',
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                calculable: true,
+                xAxis: [
                     {
-                        type : 'category',
-                        data : data.key,
-                        axisTick: {
-                            alignWithLabel: true
-                        }
+                        type: 'category',
+                        axisTick: {show: false},
+                        data: data.key
                     }
                 ],
-                yAxis : [
+                yAxis: [
                     {
-                        type : 'value'
+                        type: 'value'
                     }
                 ],
-                series : [
+                series: [
                     {
-                        name:'销售额',
-                        type:'bar',
-                        barWidth: '60%',
-                        data:data.value
+                        name: '母婴',
+                        type: 'bar',
+                        barGap: 0,
+                        label: labelOption,
+                        data: data.value1
+                    },
+                    {
+                        name: '水果',
+                        type: 'bar',
+                        label: labelOption,
+                        data: data.value2
+                    },
+                    {
+                        name: '合计',
+                        type: 'bar',
+                        label: labelOption,
+                        data: data.value3
                     }
                 ]
             };
@@ -308,6 +410,36 @@
         }
     });
 
+    $.ajax({
+        type: "POST",
+        url: "getSevenUsers",
+        dataType:"json",
+
+        success: function (data) {
+            data = eval(data);
+            console.log(data);
+            // 指定图表的配置项和数据
+            option = {
+                title: {
+                    text: '一周用户数'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: data.key
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: data.value,
+                    type: 'line'
+                }]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart3.setOption(option);
+        }
+    });
 
 </script>
 </body>

@@ -1,5 +1,6 @@
 package com.zz624.controller;
 
+import com.google.gson.Gson;
 import com.zz624.biz.OrderBiz;
 import com.zz624.biz.ShopcarBiz;
 import com.zz624.biz.UserBiz;
@@ -20,7 +21,11 @@ import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.zz624.controller.OrderController.getBeforeSevenDay;
 
 //用户控制层
 @Controller
@@ -37,6 +42,10 @@ public class UserController {
 	public String Login(User user,String code, HttpSession session) {
 		System.out.println("---登录");
 
+
+		Date now = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
 		//判断验证码是否正确
 		//if(code.equalsIgnoreCase((String)session.getAttribute("code")) && user.getPhone().equals(session.getAttribute("phone"))){
 		//关闭验证码验证
@@ -49,6 +58,8 @@ public class UserController {
 				return "001";
 			}else{
 				//新用户（第一次注册）
+
+				user.setRegisterdate(sdf.format(now));
 				ub.addUser(user);
 				own = ub.findUser(user);
 				session.setAttribute("user", own);
@@ -133,6 +144,7 @@ public class UserController {
 					order.setSumprice(shopcarList.get(i).getNumber()*shopcarList.get(i).getPrice());
 					order.setPaydate(sdf.format(now));
 					order.setPaytime(d2.format(now));
+					order.setCategory(shopcarList.get(i).getCategory());
 
 					ob.addOrder(order);
 
@@ -148,5 +160,29 @@ public class UserController {
 
 		return ""+code;
 	}
+
+    @RequestMapping("/getSevenUsers")
+    @ResponseBody
+    public String getSevenUsers(HttpSession session) {
+        System.out.println("---getSevenUsers");
+
+        Map map = new HashMap();
+
+        String[] days = getBeforeSevenDay();
+        String[] vals = new String[7];
+
+        for(int i = 0;i<7;i++){
+            vals[i] = ""+ub.findSumUsersByDates(days[i]);
+        }
+
+        map.put("key",days);
+        map.put("value",vals);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(map);
+        System.out.println("json"+json);
+        return json;
+
+    }
 
 }

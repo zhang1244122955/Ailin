@@ -25,4 +25,7 @@ public interface UserDao {
 	// 修改用户
 	int updateUser(User user);
 
+	//获取某天用户数
+	int selectSumUsersByDates(String date);
+
 }

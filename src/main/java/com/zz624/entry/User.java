@@ -10,6 +10,7 @@ public class User {
     private String name;
     private double balance;
     private String facetoken;
+    private String registerdate;
 
 
     public Integer getId() {
@@ -73,6 +74,14 @@ public class User {
         this.facetoken = facetoken;
     }
 
+    public String getRegisterdate() {
+        return registerdate;
+    }
+
+    public void setRegisterdate(String registerdate) {
+        this.registerdate = registerdate;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -83,6 +92,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", balance=" + balance +
                 ", facetoken='" + facetoken + '\'' +
+                ", registerdate='" + registerdate + '\'' +
                 '}';
     }
 }
